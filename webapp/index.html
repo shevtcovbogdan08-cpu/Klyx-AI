@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>Klyx AI</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="/webapp/style.css" />
+</head>
+<body>
+
+<div id="app">
+    <header class="topbar">
+        <div class="brand">
+            <span class="brand-dot"></span>
+            <span class="brand-name">Klyx AI</span>
+        </div>
+        <div class="topbar-actions">
+            <button id="btn-profile" class="icon-btn" title="Профиль">👤</button>
+            <button id="btn-limits" class="icon-btn" title="Лимиты">📊</button>
+        </div>
+    </header>
+
+    <main id="screen-chat" class="screen active">
+        <div id="chat-messages" class="chat-messages"></div>
+        <div id="typing-indicator" class="typing hidden">
+            <span></span><span></span><span></span>
+        </div>
+        <div class="chat-input-row">
+            <select id="model-select" class="glass-select" title="Модель"></select>
+            <input id="chat-input" type="text" placeholder="Напиши сообщение…" autocomplete="off" />
+            <button id="btn-send" class="send-btn" title="Отправить">➤</button>
+        </div>
+    </main>
+
+    <section id="screen-profile" class="screen">
+        <h2>Профиль</h2>
+        <div id="profile-info" class="glass-panel"></div>
+        <h3>Долгосрочная память</h3>
+        <div id="memory-list" class="memory-list"></div>
+        <div class="input-row">
+            <input id="memory-input" type="text" placeholder="Новый факт о тебе…" />
+            <button id="btn-memory-add" class="glass-btn">Добавить</button>
+        </div>
+        <button id="btn-memory-clear" class="glass-btn danger">Очистить всю память</button>
+    </section>
+
+    <section id="screen-limits" class="screen">
+        <h2>Лимиты и статус</h2>
+        <div class="glass-panel">
+            <div class="limit-row">
+                <span>Текстовые запросы</span>
+                <span id="limit-text-label">—</span>
+            </div>
+            <div class="progress"><div id="limit-text-bar" class="progress-fill"></div></div>
+            <div class="limit-row">
+                <span>Редактирование фото</span>
+                <span id="limit-img-label">—</span>
+            </div>
+            <div class="progress"><div id="limit-img-bar" class="progress-fill accent"></div></div>
+        </div>
+        <p class="hint">Klyx AI полностью бесплатен. Без рекламы и подписок.</p>
+    </section>
+
+    <section id="screen-image" class="screen">
+        <h2>Генерация фото</h2>
+        <div class="glass-panel">
+            <label for="image-prompt">Описание изображения</label>
+            <textarea id="image-prompt" rows="3" placeholder="Опиши, что хочешь увидеть…"></textarea>
+            <button id="btn-txt2img" class="glass-btn accent">Сгенерировать</button>
+        </div>
+        <div class="glass-panel">
+            <label for="image-file">Или загрузи фото для редактирования</label>
+            <input id="image-file" type="file" accept="image/*" />
+            <input id="image-edit-prompt" type="text" placeholder="Что изменить? Например: добавь ананас" />
+            <button id="btn-img2img" class="glass-btn accent">Отредактировать фото</button>
+        </div>
+        <div id="image-result" class="image-result"></div>
+    </section>
+
+    <nav class="bottom-nav">
+        <button class="nav-btn active" data-screen="chat">💬 Чат</button>
+        <button class="nav-btn" data-screen="image">🎨 Фото</button>
+        <button class="nav-btn" data-screen="profile">👤 Профиль</button>
+        <button class="nav-btn" data-screen="limits">📊 Лимиты</button>
+    </nav>
+</div>
+
+<script src="/webapp/app.js"></script>
+</body>
+</html>
