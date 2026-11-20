@@ -269,7 +269,8 @@ async def cmd_start(message: Message) -> None:
 # ---------------------------------------------------------------------------
 # /help и кнопка «❓ Возможности»
 # ---------------------------------------------------------------------------
-@router.message(Command("help") | (F.text == "❓ Возможности"))
+@router.message(Command("help"))
+@router.message(F.text == "❓ Возможности")
 async def cmd_help(message: Message) -> None:
     await message.answer(
         HELP_TEXT,
