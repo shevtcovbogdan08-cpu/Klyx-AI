@@ -62,11 +62,12 @@ OPENROUTER_SITE_URL: Final[str] = _get_env("OPENROUTER_SITE_URL", default="https
 OPENROUTER_APP_NAME: Final[str] = _get_env("OPENROUTER_APP_NAME", default="Klyx AI")
 
 # Список бесплатных моделей OpenRouter (можно переопределить через env, но по умолчанию — эти)
+# config.py
 _DEFAULT_FREE_MODELS = (
-    "deepseek/deepseek-chat-v3-0324:free",
-    "meta-llama/llama-3.3-70b-instruct:free",
-    "qwen/qwen-2.5-72b-instruct:free",
-    "google/gemma-3-27b-it:free",
+    "nvidia/nemotron-3-ultra-550b-a55b:free",
+    "google/gemma-4-31b-it:free",
+    "google/gemma-4-26b-a4b-it:free",
+    "baidu/ernie-5.5-flash-preview:free",
 )
 _raw_models = os.getenv("OPENROUTER_FREE_MODELS", "")
 if _raw_models.strip():
