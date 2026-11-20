@@ -115,7 +115,7 @@ MAX_IMAGE_FILE_SIZE_BYTES: Final[int] = _get_int("MAX_IMAGE_FILE_SIZE_BYTES", de
 # ---------------------------------------------------------------------------
 # Mini App / веб-сервер
 # ---------------------------------------------------------------------------
-WEBAPP_PORT: Final[int] = _get_int("WEBAPP_PORT", default=8080)
+WEBAPP_PORT: Final[int] = _get_int("PORT", _get_int("WEBAPP_PORT", 8080))
 WEBAPP_URL: Final[str] = _get_env("WEBAPP_URL", default="").rstrip("/")
 
 # ---------------------------------------------------------------------------
