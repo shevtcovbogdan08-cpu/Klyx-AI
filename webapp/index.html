@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b0f1a" />
+    <title>Klyx AI</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="/webapp/style.css" />
+</head>
+<body>
+
+<div class="ambient">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+</div>
+
+<div id="app">
+
+    <header class="topbar">
+        <div class="brand">
+            <span class="brand-dot"></span>
+            <span class="brand-name">Klyx AI</span>
+            <span class="brand-badge">FREE</span>
+        </div>
+        <button id="btn-refresh" class="icon-btn" title="Обновить">⟳</button>
+    </header>
+
+    <!-- ============ CHAT ============ -->
+    <main id="screen-chat" class="screen active">
+        <div id="chat-messages" class="chat-messages"></div>
+
+        <div id="chat-skeleton" class="skeleton-bubble hidden">
+            <div class="skeleton-line w80"></div>
+            <div class="skeleton-line w60"></div>
+            <div class="skeleton-line w70"></div>
+        </div>
+
+        <div class="chips" id="chat-chips">
+            <button class="chip" data-chip="Придумай план на день">📝 План дня</button>
+            <button class="chip" data-chip="Объясни простыми словами квантовую физику">🧪 Объясни</button>
+            <button class="chip" data-chip="Напиши идею для стартапа">💡 Идея</button>
+            <button class="chip chip-accent" id="btn-word-chat">📄 Word-отчёт</button>
+            <button class="chip chip-accent" id="btn-pptx-chat">📊 Презентация</button>
+        </div>
+
+        <div class="chat-input-row">
+            <select id="model-select" class="glass-select" title="Модель"></select>
+            <input id="chat-input" type="text" placeholder="Напиши сообщение…" autocomplete="off" />
+            <button id="btn-send" class="send-btn" title="Отправить">➤</button>
+        </div>
+    </main>
+
+    <!-- ============ ART & MEMES ============ -->
+    <section id="screen-art" class="screen">
+        <div class="segmented">
+            <button class="segment active" data-art-tab="generate">🖼 Генерация</button>
+            <button class="segment" data-art-tab="edit">✏️ Редактирование</button>
+            <button class="segment" data-art-tab="meme">😂 Мем</button>
+        </div>
+
+        <div class="art-panel active" id="art-generate">
+            <div class="glass-card">
+                <label for="art-prompt">Описание изображения</label>
+                <textarea id="art-prompt" rows="3" placeholder="Например: космонавт на закате, стиль synthwave"></textarea>
+                <button id="btn-art-generate" class="primary-btn">✨ Сгенерировать</button>
+            </div>
+        </div>
+
+        <div class="art-panel" id="art-edit">
+            <div class="glass-card">
+                <label for="art-file">Загрузите фото</label>
+                <input id="art-file" type="file" accept="image/*" />
+                <label for="art-edit-prompt">Что изменить?</label>
+                <input id="art-edit-prompt" type="text" placeholder="Например: добавь ананас" />
+                <button id="btn-art-edit" class="primary-btn">✏️ Отредактировать</button>
+            </div>
+        </div>
+
+        <div class="art-panel" id="art-meme">
+            <div class="glass-card">
+                <label for="meme-topic">Тема мема</label>
+                <input id="meme-topic" type="text" placeholder="Например: программисты на дедлайне" />
+                <button id="btn-meme-generate" class="primary-btn">😂 Сделать мем</button>
+            </div>
+        </div>
+
+        <div id="art-result" class="art-result"></div>
+    </section>
+
+    <!-- ============ TASKS ============ -->
+    <section id="screen-tasks" class="screen">
+        <div class="tasks-header glass-card">
+            <div class="tasks-progress-label">
+                <span>Выполнено</span>
+                <span id="tasks-progress-text">0 / 0</span>
+            </div>
+            <div class="progress">
+                <div id="tasks-progress-bar" class="progress-fill"></div>
+            </div>
+        </div>
+
+        <div class="input-row">
+            <input id="task-input" type="text" placeholder="Новая задача…" />
+            <button id="btn-task-add" class="primary-btn small">➕</button>
+        </div>
+
+        <div id="task-list" class="task-list"></div>
+
+        <button id="btn-tasks-clear" class="ghost-btn">🧹 Удалить выполненные</button>
+    </section>
+
+    <!-- ============ PROFILE ============ -->
+    <section id="screen-profile" class="screen">
+        <div class="glass-card">
+            <div class="profile-header">
+                <div class="avatar" id="profile-avatar">K</div>
+                <div>
+                    <div id="profile-name" class="profile-name">Гость</div>
+                    <div id="profile-id" class="profile-id">ID: —</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <h3>Лимиты</h3>
+            <div class="limit-block">
+                <div class="limit-row"><span>Текстовые запросы</span><span id="limit-text-label">—</span></div>
+                <div class="progress"><div id="limit-text-bar" class="progress-fill"></div></div>
+            </div>
+            <div class="limit-block">
+                <div class="limit-row"><span>Редактирование фото</span><span id="limit-img-label">—</span></div>
+                <div class="progress"><div id="limit-img-bar" class="progress-fill accent"></div></div>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <h3>Модель</h3>
+            <div id="profile-models" class="pill-grid"></div>
+        </div>
+
+        <div class="glass-card">
+            <h3>Роль</h3>
+            <div id="profile-roles" class="pill-grid"></div>
+        </div>
+
+        <div class="glass-card">
+            <h3>Стиль общения</h3>
+            <div class="style-group">
+                <div class="style-label">Длина ответа</div>
+                <div class="pill-grid" id="style-length"></div>
+            </div>
+            <div class="style-group">
+                <div class="style-label">Уровень</div>
+                <div class="pill-grid" id="style-expertise"></div>
+            </div>
+            <div class="style-group">
+                <div class="style-label">Тон</div>
+                <div class="pill-grid" id="style-tone"></div>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <h3>Долгосрочная память</h3>
+            <div id="memory-list" class="memory-list"></div>
+            <div class="input-row">
+                <input id="memory-input" type="text" placeholder="Новый факт о тебе…" />
+                <button id="btn-memory-add" class="primary-btn small">➕</button>
+            </div>
+            <button id="btn-memory-clear" class="ghost-btn danger">🗑 Очистить всю память</button>
+        </div>
+    </section>
+
+    <nav class="tabbar">
+        <button class="tab-btn active" data-screen="chat"><span>💬</span><small>Чат</small></button>
+        <button class="tab-btn" data-screen="art"><span>🎨</span><small>Арт</small></button>
+        <button class="tab-btn" data-screen="tasks"><span>✅</span><small>Задачи</small></button>
+        <button class="tab-btn" data-screen="profile"><span>⚙️</span><small>Профиль</small></button>
+    </nav>
+
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="/webapp/app.js"></script>
+</body>
+</html>
