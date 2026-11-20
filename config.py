@@ -64,10 +64,7 @@ OPENROUTER_APP_NAME: Final[str] = _get_env("OPENROUTER_APP_NAME", default="Klyx 
 # Список бесплатных моделей OpenRouter (можно переопределить через env, но по умолчанию — эти)
 # config.py
 _DEFAULT_FREE_MODELS = (
-    "nvidia/nemotron-3-ultra-550b-a55b:free",
-    "google/gemma-4-31b-it:free",
-    "google/gemma-4-26b-a4b-it:free",
-    "baidu/ernie-5.5-flash-preview:free",
+    "openrouter/free",
 )
 _raw_models = os.getenv("OPENROUTER_FREE_MODELS", "")
 if _raw_models.strip():
