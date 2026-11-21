@@ -746,7 +746,6 @@ h1,h2,h3,.brand-name,.user-name{letter-spacing:-.02em}
     if (tgUser && tgUser.photo_url) {
       av.innerHTML = '';
       var img = document.createElement('img'); img.src = tgUser.photo_url; img.alt = '';
-      img.onerror = function () { av.textContent = name.charAt(0).toUpperCase(); };
       av.appendChild(img);
     } else av.textContent = name.charAt(0).toUpperCase();
     $('#copyId').onclick = function () {
